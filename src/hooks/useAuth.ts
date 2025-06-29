@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Admin {
   id: string;
@@ -10,6 +11,7 @@ interface Admin {
 export const useAuth = () => {
   const [admin, setAdmin] = useState<Admin | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Simulate checking for existing session
@@ -39,6 +41,7 @@ export const useAuth = () => {
   const logout = () => {
     setAdmin(null);
     localStorage.removeItem('zaam_admin');
+    navigate('/login');
   };
 
   return {

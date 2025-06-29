@@ -6,8 +6,8 @@ import { useToast } from '../hooks/useToast';
 import { ToastContainer } from '../components/UI/Toast';
 
 export const Login: React.FC = () => {
-  const [email, setEmail] = useState('admin@zaam.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   
@@ -133,16 +133,6 @@ export const Login: React.FC = () => {
               </button>
             </div>
           </form>
-
-          <div className="mt-8 text-center">
-            <div className="text-sm text-gray-600">
-              <div className="font-medium mb-2">Demo Credentials:</div>
-              <div className="gradient-card p-4 rounded-lg font-mono text-xs">
-                <div className="text-gray-700">Email: admin@zaam.com</div>
-                <div className="text-gray-700">Password: admin123</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
