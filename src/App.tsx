@@ -4,11 +4,11 @@ import { useAuth } from './hooks/useAuth';
 import { Layout } from './components/Layout/Layout';
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
-import { Jobs } from './pages/Jobs';
 import { Applicants } from './pages/Applicants';
 import { Users } from './pages/Users';
 import { Payments } from './pages/Payments';
 import { Analytics } from './pages/Analytics';
+import { JobsPage } from './pages/JobsPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -40,7 +40,7 @@ function App() {
           >
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="jobs" element={<Jobs />} />
+            <Route path="jobs" element={<JobsPage />} />
             <Route path="applicants" element={<Applicants />} />
             <Route path="users" element={<Users />} />
             <Route path="payments" element={<Payments />} />

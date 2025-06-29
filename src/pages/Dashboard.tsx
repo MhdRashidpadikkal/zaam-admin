@@ -106,7 +106,7 @@ export const Dashboard: React.FC = () => {
         />
         <StatsCard
           title="Monthly Revenue"
-          value={`AED ${stats.monthlyRevenue.toLocaleString()}`}
+          value={`INR ${stats.monthlyRevenue.toLocaleString()}`}
           change="23%"
           changeType="increase"
           icon={DollarSign}
@@ -219,7 +219,7 @@ export const Dashboard: React.FC = () => {
             <XAxis dataKey="month" stroke="#666" />
             <YAxis stroke="#666" />
             <Tooltip 
-              formatter={(value) => [`AED ${value.toLocaleString()}`, 'Revenue']}
+              formatter={(value) => [`INR ${value.toLocaleString()}`, 'Revenue']}
               contentStyle={{ 
                 backgroundColor: '#fff', 
                 border: 'none', 
