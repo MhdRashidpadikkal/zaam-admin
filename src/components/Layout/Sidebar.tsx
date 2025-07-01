@@ -9,6 +9,7 @@ import {
   BarChart3,
   Building2
 } from 'lucide-react';
+import logo from '../../assets/zaam_logo_white.png';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -29,7 +30,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       <div className="flex flex-col h-full">
         {/* Logo */}
         <div className="flex items-center px-6 py-6 gradient-primary">
-          <Building2 className="h-10 w-10 text-white" />
+          <img src={logo} alt="Logo" className="h-14 w-14" />
           <div className="ml-3">
             <h1 className="text-xl font-bold text-white">ZAAM</h1>
             <p className="text-xs text-blue-100">Job Mediate</p>
