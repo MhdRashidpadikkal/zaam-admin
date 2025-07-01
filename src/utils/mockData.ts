@@ -1,5 +1,11 @@
 import { User, Job, Application, Payment, DashboardStats } from '../types';
 
+export const districts = [
+  "Trivandrum", "Kollam", "Pathanamthitta", "Alappuzha", "Kottayam", "Idukki",
+  "Ernakulam", "Thrissur", "Palakkad", "Malappuram", "Kozhikode", "Wayanad", "Kannur", "Kasaragod"
+];
+
+
 export const mockUsers: User[] = [
   {
     id: '1',

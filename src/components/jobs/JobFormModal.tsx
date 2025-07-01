@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from '../UI/Modal'; // Assuming this exists
 import { Job, JobUpsertData } from '../../types/job'; // Import your types
+import { districts } from '../../utils/mockData';
 
 interface JobFormModalProps {
   isOpen: boolean;
@@ -26,31 +27,41 @@ export const JobFormModal: React.FC<JobFormModalProps> = ({ isOpen, onClose, onS
     skills: initialData?.skills?.join(', ') || '',
     status: initialData?.status === 'draft' ? 'pause' : initialData?.status || 'pause', // Map 'draft' to 'pause' for form
     applicants: initialData?.applicants || 0,
-    experience_level: initialData?.experience_level || 'entry-level', // Add experience_level
+    experience_level: initialData?.experience_level || 'Entry', // Add experience_level
     tags: initialData?.tags?.join(', ') || '', // Add tags
   });
 
+  console.log("initialData", initialData);
+
   useEffect(() => {
     if (isOpen) {
+      const salaryParts = initialData?.salary ? initialData.salary.split(' ') : [];
+      const currency = salaryParts[0] || 'INR';
+      const salaryRange = salaryParts.slice(1).join(' '); // e.g., "15000 - 20000"
+      const [min_salary, max_salary] = salaryRange.split(' - ').map(s => s.trim());
+
       setFormData({
         title: initialData?.title || '',
         company: initialData?.company || '',
         category: initialData?.category || 'service',
         location: initialData?.location || '',
-        min_salary: initialData?.salary ? (initialData.salary.split(' ')[1] || '').split(' - ')[0] : '',
-        max_salary: initialData?.salary ? (initialData.salary.split(' ')[1] || '').split(' - ')[1] || '' : '',
-        currency: initialData?.salary ? initialData.salary.split(' ')[0] : 'INR',
+        min_salary: min_salary || '',
+        max_salary: max_salary || '',
+        currency,
         job_type: initialData?.type || 'Full-time',
         description: initialData?.description || '',
         responsibilities: initialData?.requirements?.join('\n') || '',
         skills: initialData?.skills?.join(', ') || '',
         status: initialData?.status === 'draft' ? 'pause' : initialData?.status || 'pause',
         applicants: initialData?.applicants || 0,
-        experience_level: initialData?.experience_level || 'entry-level',
+        experience_level: initialData?.experience_level || 'Entry',
         tags: initialData?.tags?.join(', ') || '',
       });
+
     }
   }, [isOpen, initialData]);
+
+  console.log("formData", formData);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,6 +85,7 @@ export const JobFormModal: React.FC<JobFormModalProps> = ({ isOpen, onClose, onS
     };
 
     onSubmit(dataToSend);
+    onClose();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -126,19 +138,27 @@ export const JobFormModal: React.FC<JobFormModalProps> = ({ isOpen, onClose, onS
               <option value="travel">Travel</option>
               <option value="tourism">Tourism</option>
               <option value="service">Service</option>
+              <option value="sales">Sales</option>
+
             </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
-            <input
-              type="text"
+            <select
               name="location"
               required
               value={formData.location}
               onChange={handleChange}
               className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 gradient-hover"
-              placeholder="e.g., Dubai, UAE"
-            />
+            >
+              <option value="">Select a district</option>
+              {districts.map((district) => (
+                <option key={district} value={district}>
+                  {district}
+                </option>
+              ))}
+            </select>
+
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Job Type</label>
@@ -231,19 +251,19 @@ export const JobFormModal: React.FC<JobFormModalProps> = ({ isOpen, onClose, onS
         </div>
 
         <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Experience Level</label>
-            <select
-                name="experience_level"
-                value={formData.experience_level}
-                onChange={handleChange}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 gradient-hover"
-            >
-                <option value="entry-level">Entry-Level</option>
-                <option value="mid-level">Mid-Level</option>
-                <option value="senior-level">Senior-Level</option>
-                <option value="director">Director</option>
-                <option value="executive">Executive</option>
-            </select>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Experience Level</label>
+          <select
+            name="experience_level"
+            value={formData.experience_level}
+            onChange={handleChange}
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 gradient-hover"
+          >
+            <option value="Entry">Entry-Level</option>
+            <option value="Mid">Mid-Level</option>
+            <option value="Senior">Senior-Level</option>
+            <option value="Director">Director</option>
+            <option value="Executive">Executive</option>
+          </select>
         </div>
 
         <div>
